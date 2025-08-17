@@ -1,45 +1,23 @@
 pipeline {
-    agent any   // Run on any available agent
-
-    environment {
-        APP_ENV = 'staging'
-    }
+    agent any
 
     stages {
-        stage('Checkout') {
+        stage("build stage") {
             steps {
-                git 'https://github.com/user/repo.git'
+                echo "this is build stage"
             }
         }
 
-        stage('Build') {
+        stage("deploy stage") {
             steps {
-                echo "Building the application"
-                sh 'make build'
+                echo "this is deploy stage"
             }
         }
 
-        stage('Test') {
+        stage("test stage") {
             steps {
-                echo "Running tests"
-                sh 'make test'
+                echo "this is test stage"
             }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo "Deploying to $APP_ENV"
-                sh './deploy.sh'
-            }
-        }
-    }
-
-    post {
-        success {
-            echo "Pipeline completed successfully!"
-        }
-        failure {
-            echo "Pipeline failed!"
         }
     }
 }
